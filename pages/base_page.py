@@ -1,5 +1,9 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException
+import math
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pages import locators
 
 
@@ -16,6 +20,11 @@ class BasePage:
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    # метод для нахождения элемента
+    def find_element(self, locator, time=10):
+        return WebDriverWait(self.browser, time).until(EC.presence_of_element_located(locator),
+                                                       message=f"Can't find element by locator {locator}")
+
     # добавим метод, открывающий нужную страницу в браузере
     def open(self):
         self.browser.get(self.url)
@@ -27,3 +36,4 @@ class BasePage:
         except NoSuchElementException:
             return False
         return True
+

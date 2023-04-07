@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+
 # Добавляем параметр --language с дефолтным значением "en"
 def pytest_addoption(parser):
     parser.addoption("--language", action="store", default="en",
@@ -11,7 +12,7 @@ def pytest_addoption(parser):
 
 
 # Создаем фикстуру, которая возвращает значение параметра --language
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def language(request):
     return request.config.getoption("--language")
 
@@ -27,6 +28,7 @@ def browser(language):
     options.add_experimental_option('prefs', {'intl.accept_languages': language})
     # Создаем экземпляр драйвера браузера
     browser = webdriver.Chrome(service=service, options=options)
+    browser.implicitly_wait(5)
     # Возвращаем драйвер в качестве результата фикстуры
     yield browser
     browser.quit()
