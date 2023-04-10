@@ -9,6 +9,7 @@ class MainPageLocators:
 class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 
 # локаторы страницы логина
@@ -19,8 +20,8 @@ class LoginPageLocators:
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[value='Log In']")
     REGISTER_FORM = (By.ID, "register_form")
     REGISTER_EMAIL = (By.XPATH, "//input[@id='id_registration-email']")
-    REGISTER_PASSWORD = (By.ID, "#id_registration-password1")
-    REGISTER_PASSWORD_CONFIRM = (By.ID, "#id_registration-password2")
+    REGISTER_PASSWORD = (By.CSS_SELECTOR, "#id_registration-password1")
+    REGISTER_PASSWORD_CONFIRM = (By.CSS_SELECTOR, "#id_registration-password2")
     REGISTER_BUTTON = (By.CSS_SELECTOR, "button[value='Register']")
 
 

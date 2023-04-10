@@ -1,6 +1,8 @@
+from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 from pages.basket_page import BasketPage
 import pytest
+import time
 
 
 # @pytest.mark.parametrize('promo_offer', [
@@ -53,13 +55,37 @@ import pytest
 #     page.go_to_login_page()
 
 
-def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
-    # открываем страницу товара
-    page = ProductPage(browser, link)
-    page.open()
-    # переходим в корзину по кнопке в шапке сайта
-    page.go_to_basket_page()
-    basket_page = BasketPage(browser, browser.current_url)
-    basket_page.should_not_be_products_in_basket()
-    basket_page.should_be_empty_basket_message()
+# def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+#     link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
+#     # открываем страницу товара
+#     page = ProductPage(browser, link)
+#     page.open()
+#     # переходим в корзину по кнопке в шапке сайта
+#     page.go_to_basket_page()
+#     basket_page = BasketPage(browser, browser.current_url)
+#     basket_page.should_not_be_products_in_basket()
+#     basket_page.should_be_empty_basket_message()
+
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        # открываем страницу регистрации
+        login_link = "http://selenium1py.pythonanywhere.com/accounts/login/"
+        login_page = LoginPage(browser, login_link)
+        login_page.open()
+        # регистрируем нового пользователя
+        login_page.register_new_user()
+        # проверяем, что пользователь залогинен
+        login_page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer3"
+        page = ProductPage(browser, link)
+        page.open()
+        page.product_should_in_basket()
