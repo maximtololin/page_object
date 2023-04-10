@@ -31,3 +31,10 @@ class ProductPageLocators:
     BASKET_TOTAL_PRICE = (By.CSS_SELECTOR, "div[class='alertinner '] p strong")
     ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, "button[value='Add to basket']")
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success")
+
+
+class BasketPageLocators:
+    BASKET_PAGE = (By.CSS_SELECTOR, "a[class='btn btn-default']")
+    # подтверждаем наличие товара с помощью наличия кнопки "удалить"
+    PRODUCTS_IN_BASKET = (By.XPATH, "//a[normalize-space()='Remove']")
+    EMPTY_BASKET_MESSAGE = (By.CSS_SELECTOR, "p:nth-child(1)")
