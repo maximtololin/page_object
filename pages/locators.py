@@ -6,6 +6,11 @@ class MainPageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 
+class BasePageLocators:
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+
+
 # локаторы страницы логина
 class LoginPageLocators:
     LOGIN_FORM = (By.ID, "login_form")
@@ -25,3 +30,4 @@ class ProductPageLocators:
     PRODUCT_PRICE = (By.CSS_SELECTOR, "div[class='col-sm-6 product_main'] p[class='price_color']")
     BASKET_TOTAL_PRICE = (By.CSS_SELECTOR, "div[class='alertinner '] p strong")
     ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, "button[value='Add to basket']")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success")
